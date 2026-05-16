@@ -1,0 +1,263 @@
+/* ================= FOOTER ================= */
+.footer-container {
+  background: linear-gradient(180deg, rgba(26, 26, 26, 0.5) 0%, rgba(26, 26, 26, 0.95) 50%, #0f0f0f 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  padding: 60px 20px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Secciones principales */
+.footer-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(60, 132, 206, 0.6);
+  display: inline-block;
+}
+
+.footer-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b8b8b8;
+  margin: 0;
+}
+
+/* Enlaces del footer */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links a {
+  color: #b8b8b8;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-flex;
+}
+
+.footer-links a:hover {
+  color: #3c84ce;
+  transform: translateX(4px);
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #3c84ce;
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* Información de contacto */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #b8b8b8;
+  transition: color 0.3s ease;
+}
+
+.contact-item:hover {
+  color: #3c84ce;
+}
+
+.contact-item svg {
+  color: #3c84ce;
+  flex-shrink: 0;
+}
+
+/* Divisor */
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  margin: 40px 0;
+}
+
+/* Sección inferior */
+.footer-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.copyright {
+  font-size: 12px;
+  color: #808080;
+  margin: 0;
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.footer-bottom-links a {
+  color: #808080;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: #3c84ce;
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+/* Redes sociales */
+.footer-socials {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(60, 132, 206, 0.4);
+  border-radius: 50%;
+  color: #b8b8b8;
+  transition: all 0.3s ease;
+  background: rgba(60, 132, 206, 0.05);
+}
+
+.footer-socials a:hover {
+  background: rgba(60, 132, 206, 0.15);
+  border-color: #3c84ce;
+  color: #3c84ce;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 40px 16px;
+    margin-top: 50px;
+  }
+
+  .footer-sections {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .footer-bottom-left {
+    width: 100%;
+  }
+
+  .footer-socials {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .footer-title {
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 30px 12px;
+    margin-top: 40px;
+  }
+
+  .footer-sections {
+    gap: 20px;
+  }
+
+  .footer-title {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .footer-text,
+  .footer-links a,
+  .contact-item {
+    font-size: 12px;
+  }
+
+  .footer-socials {
+    gap: 12px;
+  }
+
+  .footer-socials a {
+    width: 32px;
+    height: 32px;
+  }
+
+  .footer-socials a svg {
+    width: 16px;
+    height: 16px;
+  }
+}

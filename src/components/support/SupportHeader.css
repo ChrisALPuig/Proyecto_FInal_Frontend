@@ -1,0 +1,116 @@
+.header-fixed2 {
+  background-color: #7b3ff2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ===============================
+   FILA SUPERIOR
+================================= */
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
+  gap: 1rem;
+  flex-wrap: wrap; /* Permite mejor adaptación */
+}
+
+/* ===============================
+   TÍTULO + BUSCADOR
+================================= */
+.header-title-container {
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header-title-container h1 {
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  margin-bottom: 0.8rem;
+}
+
+/* ===============================
+   BUSCADOR
+================================= */
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border-radius: 50px;
+  padding: 6px 12px;
+}
+
+.search-icon {
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  background: transparent;
+}
+
+/* ===============================
+   BOTONES
+================================= */
+.header-actions {
+  display: flex;
+  justify-content: end;
+  gap: clamp(6px, 2vw, 16px);
+  margin-left: auto;   /* 🔥 Empuja a la derecha */
+  flex-wrap: nowrap;   /* 🔥 Evita que salten de línea */
+}
+
+.btn-outline,
+.btn-primary {
+  padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 14px);
+  font-size: clamp(11px, 2.5vw, 14px);
+  white-space: nowrap;
+}
+
+/* Added responsive styles for mobile layout */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-title-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 0;
+  }
+
+  .header-title-container h1 {
+    font-size: 1rem;
+    margin: 0;
+    margin-left: 8px;
+  }
+
+  .header-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px;
+    display: flex;
+    flex-direction: row; /* Changed to row for side-by-side alignment */
+    gap: 8px; /* Added spacing between buttons */
+  }
+}

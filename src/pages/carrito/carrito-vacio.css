@@ -1,0 +1,19 @@
+.carrito-vacio {
+    display: flex;
+}
+
+.contenido-centro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    padding-bottom: 170px;
+}
+
+.imagen-carrito-vacio {
+    margin-right: 33px; 
+    width: 150px;
+    height: auto;
+}

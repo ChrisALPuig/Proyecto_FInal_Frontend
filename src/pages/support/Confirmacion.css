@@ -1,0 +1,62 @@
+/* Contenedor centrado vertical y horizontalmente */
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    flex-direction: column;
+  }
+  
+  /* Tarjeta de confirmación responsive */
+  .confirmation-card {
+    width: 100%;           /* ocupa todo el ancho disponible */
+    max-width: 500px;      /* no crece demasiado en escritorio */
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    padding: 24px;         /* espacio interno */
+  }
+  
+  /* Títulos y párrafos */
+  h1 {
+    margin-top: 16px;
+    font-size: 1.6rem;
+  }
+  
+  p {
+    margin: 8px 0;
+    font-size: 1rem;
+  }
+  
+  /* Media query para tablets (768px - 1024px) */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .confirmation-card {
+      max-width: 400px;   /* un poco más estrecha en tablets */
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+    }
+  
+    p {
+      font-size: 1.1rem;
+    }
+  }
+  
+  /* Media query para móviles (<768px) */
+  @media (max-width: 767px) {
+    .confirmation-card {
+      max-width: 100%;    /* ocupa casi todo el ancho de la pantalla */
+      padding: 16px;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    p {
+      font-size: 0.95rem;
+    }
+  }

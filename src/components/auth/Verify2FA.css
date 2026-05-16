@@ -1,0 +1,133 @@
+.verify-2fa-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.verify-2fa-container {
+  background: white;
+  border-radius: 16px;
+  padding: 36px 32px;
+  max-width: 420px;
+  width: 92%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  animation: modalSlideIn 0.3s ease-out;
+  position: relative;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.verify-2fa-container h2 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  color: #222;
+}
+
+.verify-2fa-container p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.verify-2fa-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #444;
+  font-weight: 600;
+}
+
+.verify-2fa-form input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 8px;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+.verify-2fa-form input:focus {
+  border-color: #9e52ef;
+  box-shadow: 0 0 0 4px rgba(158, 82, 239, 0.12);
+}
+
+.error-message {
+  background: #fee;
+  color: #b00020;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.verify-2fa-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-skip,
+.btn-activate {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-skip {
+  background: #e2e2e2;
+  color: #333;
+}
+
+.btn-skip:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn-activate {
+  background: linear-gradient(135deg, #7c3aed 0%, #5f31b2 100%);
+  color: white;
+}
+
+.btn-activate:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.24);
+}
+
+.btn-skip:disabled,
+.btn-activate:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-btn:hover {
+  color: #000;
+}

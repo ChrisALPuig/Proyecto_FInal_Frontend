@@ -1,0 +1,25 @@
+/* For information on how to create your own theme, please refer to:
+http://ionicframework.com/docs/theming/ */
+
+html,
+body,
+#root,
+ion-app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+ion-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+ion-content {
+  flex: 1;
+}
+
+ion-header {
+  --min-height: 60px;
+}

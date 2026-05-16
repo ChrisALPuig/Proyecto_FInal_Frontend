@@ -1,0 +1,348 @@
+.fondo-blanco {
+  --background: rgb(192, 183, 183);
+}
+
+.lista-carrito-page {
+  padding-top: 90px; /* evita contenido debajo del header fijo */
+}
+
+@media (max-width: 992px) {
+  .lista-carrito-page {
+    padding-top: 110px;
+  }
+}
+
+.lista-carrito {
+  display: flex;
+  flex-direction: column; 
+  gap: 15px;
+  padding-top: 30px;
+  padding-left: 270px;
+}
+
+.item-carrito {
+  display: flex;          
+  align-items: center;    
+  gap: 20px;              
+}
+
+.circulo,
+.circulo2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.circulo {
+  background-color: rgb(189, 188, 188) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.circulo2 {
+  background-color: rgb(202, 201, 201) !important;
+  color: rgb(160, 159, 159) !important;
+}
+
+.texto-carrito,
+.texto-carrito2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.texto-carrito {
+  color: #ffffff !important;
+}
+
+.texto-carrito2 {
+  color: rgb(160, 159, 159) !important;
+}
+
+
+.caja-juego {
+  margin-left: 70px;
+  margin-top: 2px;
+  width: 800px;
+  background-color: #747474 !important;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column; 
+  gap: 15px;
+  padding: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(255, 255, 255) !important;
+  border: #000000 solid 1px;
+}
+
+.titulo-juego {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.contenido-juego {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start; 
+}
+
+.imagen-juego {
+  width: 75px;
+  height: 90px;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(1.15) brightness(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.informacion-juego {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1; 
+  gap: 10px;
+}
+
+.fila-arriba {
+  display: flex;
+  padding-top: 10px;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.fila-abajo {
+  display: flex;
+  padding-top: 10px;
+  gap: 10px; 
+}
+
+.nombre-juego {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.precio-juego {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(255, 255, 255) !important;
+  padding-left: 420px;
+}
+
+.eliminar-juego {
+  width: 30px;
+  height: auto;
+  cursor: pointer;
+}
+
+.boton-home {
+  margin-left: 255px;
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: rgba(255,255,255,0.1);
+  color: white !important;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.boton-home:hover {
+  background-color: rgba(255,255,255,0.2);
+  text-decoration: none;
+}
+
+.boton-home-arrow {
+  font-size: 16px;
+  line-height: 1;
+}
+
+
+/* CONTENEDOR PRINCIPAL */
+.layout-carrito {
+  display: flex;
+  gap: 30px;
+  margin-left: 200px;
+  margin-top: 40px;
+}
+
+/* CAJA JUEGO ya la tienes */
+.caja-juego {
+  width: 800px;
+}
+
+/* CAJA RESUMEN */
+.caja-resumen {
+  color: rgb(255, 255, 255) !important;
+  width: 400px;
+  background-color: #747474 !important;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  height: fit-content;
+  border: #000000 solid 1px;
+}
+
+.linea-resumen {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.linea-resumen.total {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+/* BOTÓN */
+.boton-pago {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background-color: rgb(165, 57, 132);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.boton-pago:hover {
+  background-color: #ff00dd;
+}
+
+/* TABLET (768px - 1024px) */
+@media (max-width: 1024px) {
+  .lista-carrito {
+    padding-left: 40px;
+    padding-top: 20px;
+  }
+
+  .circulo,
+  .circulo2 {
+    width: 45px;
+    height: 45px;
+  }
+
+  .layout-carrito {
+    margin-left: 40px;
+    gap: 25px;
+  }
+
+  .caja-juego {
+    margin-left: 0;
+    width: calc(100% - 430px);
+  }
+
+  .imagen-juego {
+    width: 200px;
+  }
+
+  .caja-resumen {
+    width: 380px;
+  }
+
+  .boton-home {
+    margin-left: 40px;
+  }
+}
+
+/* MÓVIL (< 768px) */
+@media (max-width: 767px) {
+  .lista-carrito {
+    padding-left: 0;
+    padding-right: 16px;
+    padding-left: 16px;
+    align-items: center;
+  }
+
+  .item-carrito {
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .circulo,
+  .circulo2 {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+
+  .texto-carrito,
+  .texto-carrito2 {
+    font-size: 12px;
+  }
+
+  .layout-carrito {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+    margin-left: 0;
+    gap: 20px;
+  }
+
+  .caja-juego {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .contenido-juego {
+    gap: 12px;
+  }
+
+  .imagen-juego {
+    width: 90px;
+  }
+
+  .fila-abajo {
+    gap: 15px;
+    align-items: start;
+    justify-content: start;
+    padding-top: 15px;
+  }
+
+  .nombre-juego {
+    font-size: 14px;
+  }
+
+  .precio-juego {
+    font-size: 14px;
+    padding-left: 0;
+  }
+
+  .caja-resumen {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .boton-pago {
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+
+  .boton-home {
+    width: 100%;
+    margin: 15px auto;
+    margin-left: 0;
+    text-align: center;
+    font-size: 13px;
+  }
+}

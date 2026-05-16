@@ -1,0 +1,236 @@
+/* Página completa - MODAL OVERLAY */
+.login-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 9999;
+  padding: 20px 0;
+}
+
+/* Formulario centrado - MODAL */
+.login-form {
+  position: relative;
+  background: rgb(255, 255, 255);
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  color: #000000;
+  text-align: center;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Inputs */
+.login-form input {
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+  /* Fondo nuevo */
+  background: rgba(158, 82, 239, 0.1); /* morado transparente */
+  color: #000000; /* color del texto */
+  backdrop-filter: blur(5px); /* efecto vidrio opcional */
+  transition: background 0.2s ease;
+}
+
+.login-form input:focus {
+  background: rgba(158, 82, 239, 0.2); /* un poco más intenso al enfocar */
+}
+
+/* Cruz para cerrar */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #000000;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #9e52ef;
+}
+
+/* Título */
+.login-form h1 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+/* Labels */
+.login-form label {
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  display: block;
+}
+
+/* Inputs */
+.login-form input {
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+}
+
+/* Botón */
+.login-form button {
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #9e52ef;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-form button:hover {
+  background-color: #7a2cc3;
+}
+
+.login-form .forgot-password-link-btn {
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: #000000;
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+
+.login-form .forgot-password-link-btn:hover {
+  background-color: transparent;
+  color: #d1b3ff;
+}
+
+/* Link de registro */
+.signup-link {
+  margin-top: 15px;
+  font-size: 0.85rem;
+}
+
+.signup-link a {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.signup-link a:hover {
+  color: #d1b3ff;
+}
+
+.forgot-password-link-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+}
+
+.forgot-password-link-btn {
+  background: none;
+  border: none;
+  color: #000000;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  transition: color 0.2s ease;
+  font-family: inherit;
+}
+
+.forgot-password-link-btn:hover {
+  color: #d1b3ff;
+}
+  .input-error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+/* TABLET (768px - 1024px) */
+@media (max-width: 1024px) {
+  .login-form {
+    width: 90%;
+    max-width: 450px;
+    padding: 35px 25px;
+  }
+
+  .login-form h1 {
+    font-size: 1.75rem;
+  }
+    .input-error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+}
+@media (max-width: 767px) {
+  .login-page {
+    padding: 20px;
+  }
+
+  .login-form {
+    width: 95%;
+    padding: 25px 20px;
+  }
+
+  .login-form h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .login-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+  }
+
+  .login-form button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .input-error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+}
+
+/* Animación del modal */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

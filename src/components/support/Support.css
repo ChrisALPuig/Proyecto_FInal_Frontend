@@ -1,0 +1,254 @@
+/* HEADER FIJO */
+.header-fixed2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: #9e52ef;
+  padding-bottom: 50px;
+}
+
+/* Contenedor del header */
+.header-inner {
+  display: flex;
+  align-items: center;
+  margin: 0 190px;
+  padding-top: 20px;
+}
+
+/* Logo */
+.logo {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+/* Título */
+.header-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #000000;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+/* Botones */
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 30px;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 9px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: #9C9C9C;
+}
+
+.btn-primary {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 9px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #9C9C9C;
+}
+
+/* Contenedor del título central y buscador */
+.header-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title-container h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Buscador */
+.search-container {
+  position: relative;
+  width: 500px;
+  margin-top: 30px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: gray;
+  font-size: 1.25rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border-radius: 9999px;
+  border: none;
+  outline: none;
+  color: black;
+}
+
+/* CONTENIDO */
+.support-content {
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding-top: 300px;
+}
+
+/* GRID */
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 80px;
+  padding: 0 190px;
+  gap: 40px;
+}
+
+.support-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.support-img {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.support-item h5 {
+  font-weight: bold;
+  font-size: 18px;
+  color: #000000;
+  margin: 0;
+}
+
+.support-item p {
+  color: #000000;
+  margin-top: 10px;
+}
+
+/* Popular topics */
+.popular-topics {
+  text-align: center;
+  color: #000000  ;
+  font-size: 21px;
+  margin-top: 30px;
+}
+
+/* Topics box */
+.support-topics {
+  background-color: #bc93e8;
+  color: #000000;
+  border: 1px solid #000000;
+  width: 800px;
+  height: auto;
+  min-height: 255px;
+  margin: 30px auto 50px;
+  padding: 20px;
+  overflow: visible;
+}
+
+.support-topics ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.support-topics .support-link {
+  color: #000000;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease, color 0.2s ease;
+}
+
+.support-topics .support-link:hover {
+  text-decoration: underline;
+}
+
+/* Eliminando las reglas de diseño responsive */
+
+/* Eliminación de las consultas de medios para tablet y móvil */
+
+/* Agregando diseño responsive para móviles */
+
+@media (max-width: 768px) {
+  /* Ajustes para el header */
+  .header-inner {
+    flex-direction: column;
+    margin: 0 20px;
+    padding-top: 10px;
+  }
+
+
+  .support-item {
+    margin-top: 80px;
+  }
+
+  .header-title {
+    font-size: 1rem;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  /* Ajustes para el buscador */
+  .search-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .search-input {
+    padding: 10px 14px 10px 40px;
+  }
+
+  /* Ajustes para el contenido */
+  .support-content {
+    padding-top: 150px;
+  }
+
+  /* Ajustes para el grid */
+  .support-grid {
+    grid-template-columns: 1fr;
+    margin: 0 20px;
+    gap: 20px;
+  }
+
+  .support-item h5 {
+    font-size: 16px;
+  }
+
+  .support-item p {
+    font-size: 14px;
+  }
+
+  /* Ajustes para los topics */
+  .support-topics {
+    width: 100%;
+    margin: 20px auto;
+    padding: 15px;
+  }
+}
