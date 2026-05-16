@@ -2,7 +2,7 @@ import { IonRouterLink } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext.tsx";
 import { useLanguage } from "../../contexts/LanguageContext.tsx";
-import { API_ENDPOINTS } from "../../config/apiConfig";
+import { API_ENDPOINTS } from "../../config/apiConfig.ts";
 import {
   CreditCard,
   User,

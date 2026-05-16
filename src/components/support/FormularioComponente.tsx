@@ -7,7 +7,7 @@ import "./FormularioComponente.css";
 import { useAuth } from "../../contexts/AuthContext.tsx";
 import { useNotification } from "../../contexts/NotificationContext.tsx";
 import { useLanguage } from "../../contexts/LanguageContext.tsx";
-import { API_ENDPOINTS } from "../../config/apiConfig";
+import { API_ENDPOINTS } from "../../config/apiConfig.ts";
 import { getUserProfile } from "../../services/userService.ts";
 
 const FormularioComponente: React.FC = () => {
