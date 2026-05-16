@@ -1,4 +1,4 @@
-import { API_ENDPOINTS } from '../config/apiConfig';
+import { API_ENDPOINTS, API_BASE_URL } from '../config/apiConfig.js';
 
 export interface Game {
   id: number;
@@ -23,8 +23,6 @@ export function getGameImageUrl(game: Game): string {
   const image = game.coverImage || game.images?.[0] || '';
   return formatImageUrl(image);
 }
-
-import { API_ENDPOINTS } from '../config/apiConfig';
 
 const BASE_URL = API_ENDPOINTS.GAMES;
 const IGDB_BASE_URL = API_ENDPOINTS.IGDB;

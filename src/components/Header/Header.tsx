@@ -11,7 +11,8 @@ import { API_ENDPOINTS } from "../../config/apiConfig";
 import { getUserProfile } from "../../services/userService.ts";
 
 type MenuCoords = { top: number; left: number; };
-import CartPopover, { CartItem } from "../carrito/CartPopover.tsx";
+import CartPopover from "../carrito/CartPopover.tsx";
+import { CartItem } from "../../contexts/useCart.tsx";
 import WishlistPopover from "../carrito/WishlistPopover.tsx";
 import "./Header.css";
 
@@ -607,9 +608,6 @@ const Header: React.FC = () => {
       <CartPopover
         isOpen={cartPopoverOpen}
         onClose={() => setCartPopoverOpen(false)}
-        cartItems={cartItems}
-        onQuantityChange={handleQuantityChange}
-        onRemoveItem={handleRemoveItem}
         triggerElement={cartRef}
       />
       <WishlistPopover

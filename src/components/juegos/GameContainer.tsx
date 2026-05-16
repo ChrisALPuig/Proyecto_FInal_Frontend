@@ -188,6 +188,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId }) => {
 
   // Añadir al carrito y abrir popover
   const handleAddToCart = async () => {
+    if (!game || game.price === undefined) return;
     try {
       await addToCart({
         id: game.id.toString(),
@@ -208,6 +209,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId }) => {
   };
 
   const handleBuyNow = async () => {
+    if (!game || game.price === undefined) return;
     try {
       await addToCart({
         id: game.id.toString(),
