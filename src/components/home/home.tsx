@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { IonContent, IonIcon, IonRouterLink } from '@ionic/react';
 import { logoWindows, logoApple } from 'ionicons/icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 import './home.css';
+import LoadingSpinner from '../LoadingSpinner.tsx';
 import CarouselJuegos from '../carousel/CarrouselJuegos.js';
 import CarouselForYou from '../carousel/CarrouselForYou.js';
 import CarrouselWhishlist from '../carousel/CarrouselWhishlist.js';
@@ -27,20 +28,20 @@ const HomeBien: React.FC<HomeBienProps> = ({ initialAuthMode }) => {
   const { wishlistItems } = useWishlist();
   const { t } = useLanguage();
 
-  useEffect(() => {
-    const loadGames = async () => {
-      try {
-        const fetchedGames = await fetchGames();
-        setGames(fetchedGames);
-      } catch (error) {
-        console.error('Error loading games:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadGames();
+  const loadGames = useCallback(async () => {
+    try {
+      const fetchedGames = await fetchGames();
+      setGames(fetchedGames);
+    } catch (error) {
+      console.error('Error loading games:', error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadGames();
+  }, [loadGames]);
 
   const featuredOffers = games.slice(0, 3);
 
@@ -66,7 +67,7 @@ const HomeBien: React.FC<HomeBienProps> = ({ initialAuthMode }) => {
   if (loading) {
     return (
       <IonContent fullscreen className="home-content">
-        <div className="loading">{t('loading')}</div>
+        <LoadingSpinner message={`${t('loading') || 'Cargando'} juegos...`} fullScreen={false} />
       </IonContent>
     );
   }

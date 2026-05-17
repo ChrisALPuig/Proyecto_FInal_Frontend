@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { fetchGames, fetchIgdbGames, Game, formatImageUrl } from "../../services/gameService";
+import LoadingSpinner from "../LoadingSpinner";
 import "./storeComponent.css";
 
 const ITEMS_PER_PAGE = 18;
+const INITIAL_IGDB_GAMES = 25; // Reducido de 50 para carga más rápida
 
 const categoryFilters = [
   { name: "Classic", genre: "Adventure", image: "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" },
@@ -25,6 +27,7 @@ const StoreComponent: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [onlyDiscounted, setOnlyDiscounted] = useState(false);
   const [onlyFree, setOnlyFree] = useState(false);
   const [includeDLCs, setIncludeDLCs] = useState(false);
@@ -38,6 +41,15 @@ const StoreComponent: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
+  // Debounce search query - evita muchas peticiones mientras escribe
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 500); // Espera 500ms después de que el usuario deje de escribir
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
   const displayedGames = useMemo(() => {
     const start = (page - 1) * ITEMS_PER_PAGE;
     return games.slice(start, start + ITEMS_PER_PAGE);
@@ -45,23 +57,23 @@ const StoreComponent: React.FC = () => {
 
   const totalPages = Math.max(1, Math.ceil(games.length / ITEMS_PER_PAGE));
 
-  const loadGames = async () => {
+  const loadGames = useCallback(async () => {
     setLoading(true);
     try {
-      // Cargar juegos de la BD
+      // Cargar juegos de la BD (críticos)
       let bdResults: Game[] = [];
       try {
         bdResults = await fetchGames({
-          query: searchQuery?.trim() ? searchQuery : undefined,
+          query: debouncedSearch?.trim() ? debouncedSearch : undefined,
         });
       } catch (error) {
         console.error("Error loading BD games:", error);
       }
 
-      // Cargar juegos de IGDB (unos 50)
+      // Cargar juegos de IGDB en paralelo (secundarios)
       let igdbResults: Game[] = [];
       try {
-        igdbResults = await fetchIgdbGames(searchQuery?.trim() ? searchQuery : undefined, 50);
+        igdbResults = await fetchIgdbGames(debouncedSearch?.trim() ? debouncedSearch : undefined, INITIAL_IGDB_GAMES);
       } catch (error) {
         console.error("Error loading IGDB games:", error);
       }
@@ -75,9 +87,9 @@ const StoreComponent: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [debouncedSearch]);
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     // Combinar juegos de BD primero, luego de IGDB
     let combinedGames = [...bdGames, ...igdbGames];
     let filteredGames = combinedGames;
@@ -106,28 +118,28 @@ const StoreComponent: React.FC = () => {
 
     setGames(filteredGames);
     setPage(1);
-  };
+  }, [bdGames, igdbGames, selectedGenres, onlyFree, onlyDiscounted, priceRange]);
 
   useEffect(() => {
     loadGames();
-  }, [searchQuery]);
+  }, [debouncedSearch, loadGames]);
 
   useEffect(() => {
     applyFilters();
-  }, [bdGames, igdbGames, onlyDiscounted, onlyFree, includeDLCs, hideDLCs, selectedGenres, selectedReleaseStatus, selectedLanguages, priceRange]);
+  }, [bdGames, igdbGames, onlyDiscounted, onlyFree, includeDLCs, hideDLCs, selectedGenres, selectedReleaseStatus, selectedLanguages, priceRange, applyFilters]);
 
-  const toggleGenre = (genre: string) => {
+  const toggleGenre = useCallback((genre: string) => {
     setSelectedGenres((prev) =>
       prev.includes(genre) ? prev.filter((item) => item !== genre) : [...prev, genre]
     );
-  };
+  }, []);
 
-  const formatGameImageUrl = (game: Game) => {
+  const formatGameImageUrl = useCallback((game: Game) => {
     const image = game.coverImage || game.images?.[0] || "";
     return formatImageUrl(image);
-  };
+  }, []);
 
-  const getGameDescription = (game: Game) => {
+  const getGameDescription = useCallback((game: Game) => {
     // Use description from IGDB or fallback to story
     if (game.description) {
       return game.description.substring(0, 100) + (game.description.length > 100 ? "..." : "");
@@ -136,20 +148,11 @@ const StoreComponent: React.FC = () => {
       return game.story.substring(0, 100) + (game.story.length > 100 ? "..." : "");
     }
     return "A thrilling adventure packed with action and nostalgia.";
-  };
+  }, []);
 
-  const getGenresDisplay = (game: Game) => {
-    if (!game.genres || game.genres.length === 0) return "";
-    return game.genres.slice(0, 2).join(", ");
-  };
-
-  const formatImageUrlService = (image?: string) => {
-    return formatImageUrl(image);
-  };
-
-  const handleGameClick = (gameId: number) => {
+  const handleGameClick = useCallback((gameId: number) => {
     history.push(`/game/${gameId}`);
-  };
+  }, [history]);
 
   return (
     <div className="store-content">
@@ -354,12 +357,17 @@ const StoreComponent: React.FC = () => {
 
         <div className={`store-grid ${viewMode === 'list' ? 'list-mode' : ''}`}>
           {loading ? (
-            <div className="loading-message">{t('loadingGamesBackend')}</div>
+            <LoadingSpinner message={`${t('loading') || 'Cargando'} tienda...`} fullScreen={false} />
           ) : displayedGames.length > 0 ? (
             displayedGames.map((game) => (
               <div key={game.id} className="game-card" onClick={() => handleGameClick(game.id)}>
                 <div className="game-card-image-container">
-                  <img className="game-card-image" src={formatGameImageUrl(game)} alt={game.title} />
+                  <img 
+                    className="game-card-image" 
+                    src={formatGameImageUrl(game)} 
+                    alt={game.title}
+                    loading="lazy"
+                  />
                   <div className="game-card-top-chip">PC</div>
                   {game.trailerVideo && (
                     <div className="game-card-trailer-badge">

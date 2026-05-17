@@ -1,10 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
-import { IonPage, IonContent, IonAvatar, IonIcon, IonText, IonSpinner } from '@ionic/react';
+import { IonPage, IonContent, IonAvatar, IonIcon, IonText } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { person } from 'ionicons/icons';
 import { API_ENDPOINTS } from '../config/apiConfig';
 import Header from '../components/Header/Header.tsx';
+import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { useWishlist } from "../contexts/useWishlist.ts";
 import { useLanguage } from '../contexts/LanguageContext.tsx';
@@ -78,35 +79,48 @@ const UserProfile: React.FC = () => {
 
   useEffect(() => {
     const loadUserData = async () => {
-      if (!token) return;
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+      
       try {
+        // Cargar perfil primero (CRÍTICO)
         const profile = await getUserProfile(token);
         setUserProfile(profile);
         if (profile.avatar && !avatar) {
           setAvatar(profile.avatar);
         }
-        // Load all orders
-        const ordersResponse = await fetch(`${API_ENDPOINTS.PAYMENTS}/user`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        if (ordersResponse.ok) {
-          const orders = await ordersResponse.json();
+
+        // Ahora cargar órdenes y tickets en paralelo (SECUNDARIO)
+        const [ordersRes, ticketsRes] = await Promise.all([
+          fetch(`${API_ENDPOINTS.PAYMENTS}/user`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }),
+          fetch(`${API_ENDPOINTS.TICKETS}/me`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }).catch(() => null)
+        ]);
+
+        // Procesar órdenes
+        if (ordersRes && ordersRes.ok) {
+          const orders = await ordersRes.json();
           setAllOrders(orders);
           setTotalOrders(orders.length);
         }
-        // Load open tickets
-        const ticketsResponse = await fetch(`${API_ENDPOINTS.TICKETS}/me`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        if (ticketsResponse.ok) {
-          const tickets = await ticketsResponse.json();
-          const openTickets = Array.isArray(tickets) ? tickets.filter((ticket: any) => ticket.status !== 'closed' && ticket.status !== 'CLOSED').length : 0;
+
+        // Procesar tickets
+        if (ticketsRes && ticketsRes.ok) {
+          const tickets = await ticketsRes.json();
+          const openTickets = Array.isArray(tickets) 
+            ? tickets.filter((ticket: any) => ticket.status !== 'closed' && ticket.status !== 'CLOSED').length 
+            : 0;
           setOpenTicketsCount(openTickets);
         }
       } catch (error) {
@@ -179,10 +193,7 @@ const UserProfile: React.FC = () => {
       <IonPage>
         <Header />
         <IonContent className="ion-padding user-profile-content">
-          <div className="loading-container">
-            <IonSpinner name="crescent" />
-            <IonText>{t('loading') || 'Loading...'}</IonText>
-          </div>
+          <LoadingSpinner message={`${t('loading') || 'Cargando'} perfil...`} fullScreen={false} />
         </IonContent>
       </IonPage>
     );
