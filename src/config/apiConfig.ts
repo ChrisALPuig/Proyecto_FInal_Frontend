@@ -36,6 +36,7 @@ export const API_ENDPOINTS = {
   WISHLIST: `${API_BASE_URL}/wishlist`,
   CART: `${API_BASE_URL}/cart`,
   PAYMENTS: `${API_BASE_URL}/payments`,
+  ORDERS: `${API_BASE_URL}/orders`,
   DOWNLOADS: `${API_BASE_URL}/downloads`,
 } as const;
 

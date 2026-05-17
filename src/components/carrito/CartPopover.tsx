@@ -73,7 +73,7 @@ const CartPopover: React.FC<CartPopoverProps> = ({ isOpen, onClose }) => {
         items,
       };
 
-      const res = await fetch(`${API_ENDPOINTS.PAYMENTS}/continue-to-payment`, {
+      const res = await fetch(`${API_ENDPOINTS.ORDERS}/continue-to-payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
