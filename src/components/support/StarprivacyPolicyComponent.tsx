@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
-const StarprivacyPolicyComponent: React.FC = () => {
-  const { t } = useLanguage();
+const PrivacyPolicyComponent: React.FC = () => {
   
   return (
     <>
@@ -105,4 +103,4 @@ const StarprivacyPolicyComponent: React.FC = () => {
   );
 };
 
-export default StarprivacyPolicyComponent;
+export default PrivacyPolicyComponent;

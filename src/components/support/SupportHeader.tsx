@@ -3,13 +3,11 @@ import { useHistory } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { User } from "lucide-react";
 import { useAuth } from '../../contexts/AuthContext.js';
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./SupportHeader.css";
 
 const SupportHeader: React.FC = () => {
   const history = useHistory();
   const { isAuthenticated, logout } = useAuth();
-  const { t } = useLanguage();
 
   return (
     <div className="header-fixed2">
@@ -25,13 +23,13 @@ const SupportHeader: React.FC = () => {
                 onClick={() => history.push("/login")}
                 className="btn-outline"
               >
-                {t("signIn")}
+                Sign In
               </button>
               <button
                 onClick={() => history.push("/register")}
                 className="btn-primary"
               >
-                {t("signUp")}
+                Sign Up
               </button>
             </>
           ) : (
@@ -53,7 +51,7 @@ const SupportHeader: React.FC = () => {
           <FiSearch className="search-icon"/>
           <input
             type="text"
-            placeholder={t("searchForHelp")}
+            placeholder="Search for help..."
             className="search-input"
           />
         </div>

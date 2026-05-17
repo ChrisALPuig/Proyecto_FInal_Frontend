@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
-const StarcgVoluntaryRefundPolicyComponent: React.FC = () => {
-  const { t } = useLanguage();
+const CgVoluntaryRefundPolicyComponent: React.FC = () => {
   
   return (
     <>
@@ -84,4 +82,4 @@ const StarcgVoluntaryRefundPolicyComponent: React.FC = () => {
   );
 };
 
-export default StarcgVoluntaryRefundPolicyComponent;
+export default CgVoluntaryRefundPolicyComponent;

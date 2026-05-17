@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
 const NotOrderTheGameComponent: React.FC = () => {
-  const { t } = useLanguage();
   return (
     <>
       <SupportHeader />

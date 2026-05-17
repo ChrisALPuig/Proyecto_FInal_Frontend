@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
-const StaremailFromCgLooksSuspiciousPhishingComponent: React.FC = () => {
-  const { t } = useLanguage();
+const EmailFromCgLooksSuspiciousPhishingComponent: React.FC = () => {
   
   return (
     <>
@@ -85,4 +83,4 @@ const StaremailFromCgLooksSuspiciousPhishingComponent: React.FC = () => {
   );
 };
 
-export default StaremailFromCgLooksSuspiciousPhishingComponent;
+export default EmailFromCgLooksSuspiciousPhishingComponent;

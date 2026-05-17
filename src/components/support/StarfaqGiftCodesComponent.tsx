@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
-const StarfaqGiftCodesComponent: React.FC = () => {
-  const { t } = useLanguage();
+const FaqGiftCodesComponent: React.FC = () => {
   
   return (
     <>
@@ -87,4 +85,4 @@ const StarfaqGiftCodesComponent: React.FC = () => {
   );
 };
 
-export default StarfaqGiftCodesComponent;
+export default FaqGiftCodesComponent;

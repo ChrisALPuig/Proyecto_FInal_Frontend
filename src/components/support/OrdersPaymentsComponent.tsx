@@ -1,10 +1,9 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./OrdersPaymentsComponent.css"; // <-- nuevo CSS
 import SupportHeader from "./SupportHeader.tsx";
 
 const OrdersPayments: React.FC = () => {
-  const { t } = useLanguage();
+  
   return (
     <>
 

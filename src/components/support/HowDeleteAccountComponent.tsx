@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
 const HowDeleteAccountComponent: React.FC = () => {
-  const { t } = useLanguage();
   
   return (
     <>
@@ -14,7 +12,7 @@ const HowDeleteAccountComponent: React.FC = () => {
 
       {/* CONTENIDO BLANCO */}
       <div className="orders-content">
-        <h1 className="orders-titles">{t("howDoIDeleteMyAccount")}</h1>
+        <h1 className="orders-titles"> How do I delete my account? </h1>
         <div className="divider"></div>
 
         {/* CONTENEDOR DE RESPUESTA */}
@@ -50,20 +48,23 @@ const HowDeleteAccountComponent: React.FC = () => {
   </div>
 </div>
 
-        <h1 className="more-questions">{t("moreQuestions")}</h1>
+        <h1 className="more-questions">Do you have more questions?</h1>
         <div className="more-questions-box">
         <div className="more-questions-box-image">
         <img src="/public/communication.png" alt="" />
         </div>
         <div className="more-questions-box-title">
-        <h5>{t("didntFindAnswer")}</h5>
+        <h5>Didn't find the answer you were looking for?</h5>
         </div>
         <div className="more-questions-box-p">
-        <p>{t("didntFindAnswerDescription")}</p>
+        <p>If you were unable to find the answers you were  looking for, please reach out and 
+          someone from our  friendly and knowledgeable support team will be  happy to help with 
+          their top-notch assistance! We know you want to get back to gaming, so we strive  to answer all messages within 24 hours.
+        </p>
         </div>
         <div className="button-contact-uno">
           <IonRouterLink routerLink="/form">
-          <button className="button-contact">{t("contactUs")}</button>
+          <button className="button-contact">CONTACT US</button>
           </IonRouterLink>
         </div>
         </div>

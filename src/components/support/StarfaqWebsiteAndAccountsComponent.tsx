@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
-const StarfaqWebsiteAndAccountsComponent: React.FC = () => {
-  const { t } = useLanguage();
+const FaqWebsiteAndAccountsComponent: React.FC = () => {
   
   return (
     <>
@@ -76,4 +74,4 @@ const StarfaqWebsiteAndAccountsComponent: React.FC = () => {
   );
 };
 
-export default StarfaqWebsiteAndAccountsComponent;
+export default FaqWebsiteAndAccountsComponent;

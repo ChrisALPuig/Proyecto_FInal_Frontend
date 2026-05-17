@@ -1,10 +1,8 @@
 import { IonPage, IonRouterLink } from "@ionic/react";
-import { useLanguage } from "../../contexts/LanguageContext.tsx";
 import "./HowToPayComponente.css";
 import SupportHeader from "./SupportHeader.tsx";
 
-const StarcgUserAgreementComponent: React.FC = () => {
-  const { t } = useLanguage();
+const CgUserAgreementComponent: React.FC = () => {
   
   return (
     <>
@@ -117,4 +115,4 @@ const StarcgUserAgreementComponent: React.FC = () => {
   );
 };
 
-export default StarcgUserAgreementComponent;
+export default CgUserAgreementComponent;
