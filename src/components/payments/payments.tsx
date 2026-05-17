@@ -168,33 +168,6 @@ const Payments = () => {
 
       } else if (paymentMethod === 'paypal') {
         if (!formData.paypalEmail) { alert('Ingresa tu email de PayPal'); setLoading(false); return; }
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ stripePaymentId: result.paymentIntent.id }),
-          });
-
-          if (!saveCardData) {
-            await clearCardDetails();
-          }
-
-          await clearCart();
-
-          addNotification({
-            id: `payment-success-${Date.now()}`,
-            title: 'Pago Completado',
-            message: `Tu pago de ${total.toFixed(2)}€ ha sido procesado exitosamente.`,
-            createdAt: new Date().toISOString(),
-            read: false,
-            link: '/orders-settings',
-          });
-
-          history.push('/success');
-        }
-
-      } else if (paymentMethod === 'paypal') {
-        if (!formData.paypalEmail) { alert('Ingresa tu email de PayPal'); setLoading(false); return; }
         
         await clearCart();
 
@@ -242,9 +215,9 @@ const Payments = () => {
         <div className="lista-carrito">
           <div className="item-carrito">
             <div className="circulo-payment">1</div>
-            <span className="texto-carrito-payment">{t('yourCart')}</span>
+            <span className="texto-carrito-payment">{t('Your Cart')}</span>
             <div className="circulo2-payment">2</div>
-            <span className="texto-carrito2-payment">{t('payment')}</span>
+            <span className="texto-carrito2-payment">{t('Payment')}</span>
           </div>
         </div>
 
@@ -258,7 +231,7 @@ const Payments = () => {
                 className={`payment-option ${paymentMethod === 'card' ? 'active' : ''}`}
                 onClick={() => setPaymentMethod(paymentMethod === 'card' ? '' : 'card')}
               >
-                💳 {t('creditDebitCard')}
+                💳 {t('Credit Debit Card')}
               </button>
                   {paymentMethod === 'card' && (
                 <div className='payment-form card-form'>
@@ -287,13 +260,13 @@ const Payments = () => {
                 className={`payment-option ${paymentMethod === 'paypal' ? 'active' : ''}`}
                 onClick={() => setPaymentMethod(paymentMethod === 'paypal' ? '' : 'paypal')}
               >
-                🅿️ {t('paypal')}
+                🅿️ {t('Paypal')}
               </button>
-              {paymentMethod === 'paypal' && (
+              {paymentMethod === 'Paypal' && (
                 <div className='payment-form paypal-form'>
                   <input
-                    name="paypalEmail"
-                    placeholder={t('paypalEmail')}
+                    name="paypal Email"
+                    placeholder={t('paypal Email')}
                     value={formData.paypalEmail}
                     onChange={handleInputChange}
                   />
@@ -309,10 +282,10 @@ const Payments = () => {
               </button>
               {paymentMethod === 'bank' && (
                 <div className='payment-form bank-form'>
-                  <input name="bankHolder" placeholder={t('bankAccountHolder')} value={formData.bankHolder} onChange={handleInputChange} />
+                  <input name="bankHolder" placeholder={t('bank Account Holder')} value={formData.bankHolder} onChange={handleInputChange} />
                   <input name="bankAccount" placeholder={t('iban')} value={formData.bankAccount} onChange={handleInputChange} />
                   <input name="bankCode" placeholder={t('bicBankCode')} value={formData.bankCode} onChange={handleInputChange} />
-                  <p className='payment-info'>{t('transferReference')} {orderId}</p>
+                  <p className='payment-info'>{t('transfer Reference')} {orderId}</p>
                 </div>
               )}
             </div>
@@ -320,7 +293,7 @@ const Payments = () => {
 
           {/* RESUMEN */}
           <div className="caja-resumen">
-            <h2>{t('orderSummary')}</h2>
+            <h2>{t('Order Summary')}</h2>
 
             {cartItems.map(item => (
               <div key={item.id} className='product-preview'>
@@ -333,7 +306,7 @@ const Payments = () => {
             ))}
 
             <div className="linea-resumen">
-              <span>{t('total')}</span>
+              <span>{t('Total')}</span>
               <span>{total.toFixed(2)}€</span>
             </div>
 
@@ -349,7 +322,7 @@ const Payments = () => {
           onClick={() => history.push('/carrito-juego')}
           type="button"
         >
-          ← {t('backToCart')}
+          ← {t('Back To Cart')}
         </button>
 
       </div>
