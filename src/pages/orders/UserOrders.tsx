@@ -144,7 +144,9 @@ const UserOrders: React.FC = () => {
                         </div>
                         <div className="order-details">
                           <p><strong>{t('orderIdLabel')}</strong> {payment.orderId}</p>
+                          <p><strong>{t('createdAtLabel')}</strong> {new Date(payment.createdAt).toLocaleDateString()}</p>
                           <p><strong>{t('amountLabel')}</strong> €{Number(payment.amount).toFixed(2)}</p>
+                          <p><strong>{t('statusLabel')}</strong> {payment.status}</p>
                           {payment.status === 'success' && (
                             <button 
                               className="download-game-btn"
