@@ -193,7 +193,7 @@ const UserProfile: React.FC = () => {
       <IonPage>
         <Header />
         <IonContent className="ion-padding user-profile-content">
-          <LoadingSpinner message={`${t('loading') || 'Cargando'} perfil...`} fullScreen={false} />
+          <LoadingSpinner message={t('loadingProfile') || 'Cargando perfil...'} fullScreen={false} />
         </IonContent>
       </IonPage>
     );

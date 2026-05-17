@@ -67,7 +67,7 @@ const HomeBien: React.FC<HomeBienProps> = ({ initialAuthMode }) => {
   if (loading) {
     return (
       <IonContent fullscreen className="home-content">
-        <LoadingSpinner message={`${t('loading') || 'Cargando'} juegos...`} fullScreen={false} />
+        <LoadingSpinner message={t('loading') || 'Cargando'} fullScreen={false} />
       </IonContent>
     );
   }

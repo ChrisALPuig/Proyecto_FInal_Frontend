@@ -63,7 +63,8 @@ const Success = () => {
       }
 
       try {
-        const res = await fetch(`${API_ENDPOINTS.PAYMENTS}/record`, {
+        // Ejecutar ambas llamadas en paralelo (no esperar secuencialmente)
+        const recordPromise = fetch(`${API_ENDPOINTS.PAYMENTS}/record`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -72,38 +73,41 @@ const Success = () => {
           body: JSON.stringify(payload),
         });
 
+        const emailPromise = fetch(`${API_ENDPOINTS.PAYMENTS}/send-email/${orderId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        });
+
+        // Esperar solo a que se registre el pago (el email es secundario)
+        const res = await recordPromise;
+
         if (!res.ok) {
           console.error('Failed to record payment', res.status);
         } else {
           console.log('Payment recorded for order', orderId);
-          
-          // Enviar email después de registrar el pago
-          try {
-            const emailRes = await fetch(`${API_ENDPOINTS.PAYMENTS}/send-email/${orderId}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                ...(token ? { Authorization: `Bearer ${token}` } : {}),
-              },
-            });
-
-            if (!emailRes.ok) {
-              console.error('Failed to send email', emailRes.status);
-            } else {
-              console.log('Payment email sent for order', orderId);
-            }
-          } catch (emailErr) {
-            console.error('Error sending email:', emailErr);
-          }
-
-          // Limpiar localStorage después de guardar exitosamente
-          localStorage.removeItem('paymentPayload');
-          localStorage.removeItem('paymentId');
-          localStorage.removeItem('orderId');
-          
-          // Emitir evento personalizado para que otros componentes sepan que se completó el pago
-          window.dispatchEvent(new CustomEvent('paymentCompleted', { detail: { orderId, paymentId } }));
         }
+
+        // Enviar email sin esperar (fire-and-forget)
+        emailPromise
+          .then(emailRes => {
+            if (emailRes.ok) {
+              console.log('Payment email sent for order', orderId);
+            } else {
+              console.error('Failed to send email', emailRes.status);
+            }
+          })
+          .catch(emailErr => console.error('Error sending email:', emailErr));
+
+        // Limpiar localStorage después de guardar exitosamente
+        localStorage.removeItem('paymentPayload');
+        localStorage.removeItem('paymentId');
+        localStorage.removeItem('orderId');
+        
+        // Emitir evento personalizado para que otros componentes sepan que se completó el pago
+        window.dispatchEvent(new CustomEvent('paymentCompleted', { detail: { orderId, paymentId } }));
       } catch (err) {
         console.error('Error recording payment:', err);
       } finally {

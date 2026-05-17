@@ -357,7 +357,7 @@ const StoreComponent: React.FC = () => {
 
         <div className={`store-grid ${viewMode === 'list' ? 'list-mode' : ''}`}>
           {loading ? (
-            <LoadingSpinner message={`${t('loading') || 'Cargando'} tienda...`} fullScreen={false} />
+            <LoadingSpinner message={t('loading') || 'Cargando'} fullScreen={false} />
           ) : displayedGames.length > 0 ? (
             displayedGames.map((game) => (
               <div key={game.id} className="game-card" onClick={() => handleGameClick(game.id)}>
