@@ -82,17 +82,38 @@ const Payments = () => {
       if (paymentMethod === 'card') {
         const items = cartItems.map(item => ({ price: item.price, quantity: item.quantity }));
 
-        // 1️⃣ Crear PaymentIntent en backend
-        const res = await fetch(`${API_ENDPOINTS.PAYMENTS}/create-intent`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ items, orderId }),
-        });
+        // 1️⃣ Crear PaymentIntent en backend CON TIMEOUT
+        let res;
+        let retries = 0;
+        const maxRetries = 2;
+        
+        while (retries < maxRetries) {
+          try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 15000); // 15 segundos
+            
+            res = await fetch(`${API_ENDPOINTS.PAYMENTS}/create-intent`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ items, orderId }),
+              signal: controller.signal,
+            });
+            clearTimeout(timeout);
+            break;
+          } catch (error) {
+            retries++;
+            if (retries >= maxRetries) {
+              throw error;
+            }
+            // Esperar un poco antes de reintentar
+            await new Promise(r => setTimeout(r, 1000));
+          }
+        }
 
-        const data = await res.json();
+        const data = await res!.json();
         if (!data.clientSecret || !data.paymentId) {
           alert('Error creando PaymentIntent: ' + (data.error || 'desconocido'));
           setLoading(false);
@@ -107,17 +128,46 @@ const Payments = () => {
         const cardElement = elements.getElement(CardElement);
         if (!cardElement) { alert('CardElement no encontrado'); setLoading(false); return; }
 
-        // 2️⃣ Confirmar pago con Stripe
+        // 2️⃣ Confirmar pago con Stripe (Stripe ya tiene timeouts internos)
         const result = await stripe.confirmCardPayment(clientSecret, {
           payment_method: { card: cardElement, billing_details: { name: formData.cardName || 'Cliente' } },
         });
 
         if (result.error) {
           alert(result.error.message);
+          setLoading(false);
         } else if (result.paymentIntent?.status === 'succeeded') {
-          // 3️⃣ Actualizar paymentId en backend (opcional)
-          await fetch(`${API_ENDPOINTS.PAYMENTS}/update/${paymentId}`, {
+          // 3️⃣ Actualizar paymentId en backend (sin bloquear si falla)
+          fetch(`${API_ENDPOINTS.PAYMENTS}/update/${paymentId}`, {
             method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ stripePaymentId: result.paymentIntent.id }),
+          }).catch(err => console.error('Error actualizando pago:', err));
+
+          if (!saveCardData) {
+            await clearCardDetails();
+          }
+
+          await clearCart();
+
+          addNotification({
+            id: `payment-success-${Date.now()}`,
+            title: 'Pago Completado',
+            message: `Tu pago de ${total.toFixed(2)}€ ha sido procesado exitosamente.`,
+            createdAt: new Date().toISOString(),
+            read: false,
+            link: '/orders-settings',
+          });
+
+          history.push('/success');
+          setLoading(false);
+        }
+
+      } else if (paymentMethod === 'paypal') {
+        if (!formData.paypalEmail) { alert('Ingresa tu email de PayPal'); setLoading(false); return; }
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,

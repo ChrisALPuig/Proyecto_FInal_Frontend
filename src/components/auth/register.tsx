@@ -48,21 +48,43 @@ const Register: React.FC<RegisterProps> = ({ isModal = false, onClose }) => {
     }
 
     setLoading(true);
-    try {
-      const res = await fetch(`${AUTH_ENDPOINTS.REGISTER}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, username, password }),
-      });
+    let res;
+    let retries = 0;
+    const maxRetries = 2;
 
-      if (!res.ok) {
-        const text = await res.text();
+    while (retries < maxRetries) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000); // 15 segundos
+        
+        res = await fetch(`${AUTH_ENDPOINTS.REGISTER}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, username, password }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeout);
+        break;
+      } catch (error: any) {
+        retries++;
+        if (retries >= maxRetries) {
+          setLoading(false);
+          setError("Tiempo de conexión agotado. Por favor, verifica tu conexión e intenta de nuevo.");
+          return;
+        }
+        // Esperar un poco antes de reintentar
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    }
+
+    try {
+      if (!res || !res.ok) {
+        const text = await res!.text();
 
         let friendlyMessage = t("serverError");
-        if (res.status === 400) {
-          // El servidor devuelve el mensaje directamente si está bien formado
+        if (res!.status === 400) {
           friendlyMessage = text || t("invalidData");
-        } else if (res.status === 500) {
+        } else if (res!.status === 500) {
           friendlyMessage = t("serverError");
         }
 
