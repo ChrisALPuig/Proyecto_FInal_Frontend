@@ -1,9 +1,10 @@
 .loading-spinner-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  min-height: 300px;
+  padding-top: 20px;
   width: 100%;
+  min-height: auto;
 }
 
 .loading-spinner-container.fullscreen {
@@ -15,6 +16,8 @@
   min-height: 100vh;
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
   z-index: 9999;
+  align-items: center;
+  padding-top: 0;
 }
 
 .loading-spinner-content {

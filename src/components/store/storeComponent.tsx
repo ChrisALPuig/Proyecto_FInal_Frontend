@@ -6,7 +6,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import "./storeComponent.css";
 
 const ITEMS_PER_PAGE = 18;
-const INITIAL_IGDB_GAMES = 25; // Reducido de 50 para carga más rápida
+const INITIAL_IGDB_GAMES = 12; // Reducido para carga más rápida
 
 const categoryFilters = [
   { name: "Classic", genre: "Adventure", image: "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" },
