@@ -23,21 +23,21 @@ const Policies_GeneralnfoComponent: React.FC = () => {
           <table className="orders-table">
             <tbody>
               
-              <tr><td><IonRouterLink routerLink="/cg-voluntary-refund-policy" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>CG Voluntary Refund Policy </IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/cg-voluntary-refund-policy" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>CG Voluntary Refund Policy </IonRouterLink></td></tr>
               
-              <tr><td><IonRouterLink routerLink="/faq-shopping-experience" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>FAQ: Shopping experience </IonRouterLink></td></tr>
-              <tr><td><IonRouterLink routerLink="/faq-website-and-accounts" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>FAQ: Website and accounts</IonRouterLink></td></tr>
-              <tr><td><IonRouterLink routerLink="/cg-user-agreement" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>CG User Agreement</IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/faq-shopping-experience" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>FAQ: Shopping experience </IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/faq-website-and-accounts" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>FAQ: Website and accounts</IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/cg-user-agreement" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>CG User Agreement</IonRouterLink></td></tr>
             </tbody>
           </table>
 
           {/* DERECHA */}
           <table className="orders-table">
             <tbody>
-              <tr><td><IonRouterLink routerLink="/faq-gift-codes" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>FAQ: Gift codes</IonRouterLink></td></tr>
-              <tr><td><IonRouterLink routerLink="/faq-downloads-and-streaming" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>FAQ: Downloads and streaming</IonRouterLink></td></tr>
-              <tr><td><IonRouterLink routerLink="/privacy-policy" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>Privacy Policy</IonRouterLink></td></tr>
-              <tr><td><IonRouterLink routerLink="/email-from-cg-looks-suspicious-phishing" className="table-link"><img src="/public/start.png" alt="star" className="orders-table-images"/>Email from CG looks suspicious / Phishing</IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/faq-gift-codes" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>FAQ: Gift codes</IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/faq-downloads-and-streaming" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>FAQ: Downloads and streaming</IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/privacy-policy" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>Privacy Policy</IonRouterLink></td></tr>
+              <tr><td><IonRouterLink routerLink="/email-from-cg-looks-suspicious-phishing" className="table-link"><img src="/start.png" alt="star" className="orders-table-images"/>Email from CG looks suspicious / Phishing</IonRouterLink></td></tr>
             </tbody>
           </table>
         </div>
@@ -45,7 +45,7 @@ const Policies_GeneralnfoComponent: React.FC = () => {
         <h1 className="more-questions">Do you have more questions?</h1>
         <div className="more-questions-box">
         <div className="more-questions-box-image">
-        <img src="/public/communication.png" alt="" />
+        <img src="/communication.png" alt="" />
         </div>
         <div className="more-questions-box-title">
         <h5>Didn't find the answer you were looking for?</h5>

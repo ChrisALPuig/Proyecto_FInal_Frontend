@@ -39,7 +39,7 @@ const HowToRedeemCodePageComponent: React.FC = () => {
         <h1 className="more-questions">Do you have more questions?</h1>
         <div className="more-questions-box">
         <div className="more-questions-box-image">
-        <img src="/public/communication.png" alt="" />
+        <img src="/communication.png" alt="" />
         </div>
         <div className="more-questions-box-title">
         <h5>Didn't find the answer you were looking for?</h5>
@@ -64,3 +64,4 @@ const HowToRedeemCodePageComponent: React.FC = () => {
 };
 
 export default HowToRedeemCodePageComponent;
+

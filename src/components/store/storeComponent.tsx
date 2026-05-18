@@ -60,20 +60,36 @@ const StoreComponent: React.FC = () => {
   const loadGames = useCallback(async () => {
     setLoading(true);
     try {
-      // Cargar juegos de la BD (críticos)
+      const hasSearch = debouncedSearch?.trim().length ?? 0 > 0;
+      
+      // Paso 1: Buscar primero en la BD
       let bdResults: Game[] = [];
       try {
         bdResults = await fetchGames({
-          query: debouncedSearch?.trim() ? debouncedSearch : undefined,
+          query: hasSearch ? debouncedSearch : undefined,
         });
+        console.log("BD results:", bdResults.length, "| Search:", debouncedSearch);
       } catch (error) {
         console.error("Error loading BD games:", error);
       }
 
-      // Cargar juegos de IGDB en paralelo (secundarios)
+      // Paso 2: Si hay búsqueda y se encontraron resultados en BD, usar solo esos
+      // Si no hay búsqueda o no se encontraron resultados, completar con IGDB
       let igdbResults: Game[] = [];
       try {
-        igdbResults = await fetchIgdbGames(debouncedSearch?.trim() ? debouncedSearch : undefined, INITIAL_IGDB_GAMES);
+        if (hasSearch && bdResults.length > 0) {
+          // Si encontramos resultados en BD, no buscamos en IGDB
+          console.log("Using only BD results for search:", debouncedSearch);
+          igdbResults = [];
+        } else if (!hasSearch) {
+          // Si no hay búsqueda, cargar juegos populares de IGDB para llenar la tienda
+          igdbResults = await fetchIgdbGames(undefined, INITIAL_IGDB_GAMES);
+          console.log("Loading popular games from IGDB:", igdbResults.length);
+        } else {
+          // Si hay búsqueda pero no hay resultados en BD, buscar en IGDB
+          igdbResults = await fetchIgdbGames(debouncedSearch, INITIAL_IGDB_GAMES);
+          console.log("IGDB results for search:", igdbResults.length);
+        }
       } catch (error) {
         console.error("Error loading IGDB games:", error);
       }
@@ -90,10 +106,17 @@ const StoreComponent: React.FC = () => {
   }, [debouncedSearch]);
 
   const applyFilters = useCallback(() => {
-    // Combinar juegos de BD primero, luego de IGDB
-    let combinedGames = [...bdGames, ...igdbGames];
+    // Combinar: BD primero (tienen mayor prioridad), luego IGDB
+    let combinedGames = [...bdGames];
+    
+    // Solo agregar IGDB si no hay búsqueda activa o si no hay suficientes resultados de BD
+    if (debouncedSearch?.trim().length === 0 || bdGames.length === 0) {
+      combinedGames = [...bdGames, ...igdbGames];
+    }
+
     let filteredGames = combinedGames;
 
+    // Aplicar filtros
     if (selectedGenres.length > 0) {
       filteredGames = filteredGames.filter((game) =>
         game.genres?.some((genre) => selectedGenres.includes(genre))
@@ -108,6 +131,7 @@ const StoreComponent: React.FC = () => {
       filteredGames = filteredGames.filter((game) => game.price !== undefined && game.price < 20);
     }
 
+    // Filtro de rango de precio
     filteredGames = filteredGames.filter((game) => {
       const price = game.price;
       if (price === undefined || price === null) {
@@ -116,9 +140,24 @@ const StoreComponent: React.FC = () => {
       return price >= priceRange[0] && price <= priceRange[1];
     });
 
+    // Filtro de DLCs
+    if (hideDLCs) {
+      filteredGames = filteredGames.filter((game) =>
+        !game.tags?.some((tag) => tag.toLowerCase().includes("dlc")) &&
+        !game.features?.some((feature) => feature.toLowerCase().includes("dlc"))
+      );
+    }
+
+    if (includeDLCs) {
+      filteredGames = filteredGames.filter((game) =>
+        game.tags?.some((tag) => tag.toLowerCase().includes("dlc")) ||
+        game.features?.some((feature) => feature.toLowerCase().includes("dlc"))
+      );
+    }
+
     setGames(filteredGames);
     setPage(1);
-  }, [bdGames, igdbGames, selectedGenres, onlyFree, onlyDiscounted, priceRange]);
+  }, [bdGames, igdbGames, selectedGenres, onlyFree, onlyDiscounted, priceRange, hideDLCs, includeDLCs, debouncedSearch]);
 
   useEffect(() => {
     loadGames();

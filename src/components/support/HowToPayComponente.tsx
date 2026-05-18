@@ -1,4 +1,4 @@
-ï»¿import { IonPage, IonRouterLink } from "@ionic/react";
+import { IonPage, IonRouterLink } from "@ionic/react";
 import "./HowToPayComponente.css"; // <-- nuevo CSS
 import SupportHeader from "./SupportHeader.tsx";
 
@@ -21,8 +21,8 @@ const HowToPay: React.FC = () => {
     <p>It's super-easy! First, you need to add a game to your cart, which you can do from two different places:</p>
     
     <p>
-      â€¢ The catalog page, by clicking on the game's price.<br />
-      â€¢ The product page, by clicking the "Add to Cart" button.
+      • The catalog page, by clicking on the game's price.<br />
+      • The product page, by clicking the "Add to Cart" button.
     </p>
 
     <p>Once you have one or more items in your cart, click the Cart icon in the upper-right corner of the screen and select "Checkout Now". You can also do this directly from any product page, where the "Add to Cart" button will be replaced by "Checkout Now" once the item is added.</p>
@@ -37,7 +37,7 @@ const HowToPay: React.FC = () => {
         <h1 className="more-questions">Do you have more questions?</h1>
         <div className="more-questions-box">
         <div className="more-questions-box-image">
-        <img src="/public/communication.png" alt="" />
+        <img src="/communication.png" alt="" />
         </div>
         <div className="more-questions-box-title">
         <h5>Didn't find the answer you were looking for?</h5>
@@ -62,3 +62,4 @@ const HowToPay: React.FC = () => {
 };
 
 export default HowToPay;
+
